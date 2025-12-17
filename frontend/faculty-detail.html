@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Faculty Profile - Faculty Database Management System">
+    <title>Faculty Profile | Faculty DBMS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Faculty Profile</h1>
+                    <span class="subtitle">Department of Information Science & Engineering</span>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="dashboard.html" class="nav-link" id="dashboardLink" style="display: none;">Dashboard</a>
+                    <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Loading State -->
+    <div class="loading" id="loadingState">
+        <div class="spinner"></div>
+        <p>Loading faculty profile...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" id="errorState" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <h2>Faculty Not Found</h2>
+        <p>The faculty member you're looking for doesn't exist or has been removed.</p>
+        <a href="index.html" class="btn btn-primary">Back to Directory</a>
+    </div>
+
+    <!-- Faculty Profile -->
+    <main class="profile-main" id="profileMain" style="display: none;">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <div class="avatar-placeholder" id="avatarPlaceholder">
+                        <span id="avatarInitials"></span>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h1 id="facultyName"></h1>
+                    <p class="designation" id="facultyDesignation"></p>
+                    <p class="department" id="facultyDepartment"></p>
+                    <div class="profile-meta">
+                        <span class="badge" id="statusBadge"></span>
+                        <span class="employee-id" id="employeeId"></span>
+                    </div>
+                </div>
+                <div class="profile-actions" id="profileActions" style="display: none;">
+                    <a href="#" class="btn btn-primary" id="editBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                        Edit Profile
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div class="profile-content">
+                <!-- Contact Information -->
+                <section class="profile-section">
+                    <h2 class="section-title">Contact Information</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value" id="facultyEmail"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value" id="facultyPhone"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Office Location</span>
+                            <span class="info-value" id="officeLocation"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Office Hours</span>
+                            <span class="info-value" id="officeHours"></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Biography -->
+                <section class="profile-section" id="biographySection" style="display: none;">
+                    <h2 class="section-title">Biography</h2>
+                    <p class="biography-text" id="biographyText"></p>
+                </section>
+
+                <!-- Research Interests -->
+                <section class="profile-section" id="researchSection" style="display: none;">
+                    <h2 class="section-title">Research Interests</h2>
+                    <div class="tags-container" id="researchInterests"></div>
+                </section>
+
+                <!-- Qualifications -->
+                <section class="profile-section" id="qualificationsSection" style="display: none;">
+                    <h2 class="section-title">Educational Qualifications</h2>
+                    <div class="timeline" id="qualificationsList"></div>
+                </section>
+
+                <!-- Experience -->
+                <section class="profile-section" id="experienceSection" style="display: none;">
+                    <h2 class="section-title">Work Experience</h2>
+                    <div class="timeline" id="experienceList"></div>
+                </section>
+
+                <!-- Publications -->
+                <section class="profile-section" id="publicationsSection" style="display: none;">
+                    <h2 class="section-title">Publications</h2>
+                    <div class="publications-list" id="publicationsList"></div>
+                </section>
+
+                <!-- Courses Taught -->
+                <section class="profile-section" id="coursesSection" style="display: none;">
+                    <h2 class="section-title">Courses Taught</h2>
+                    <div class="courses-grid" id="coursesList"></div>
+                </section>
+
+                <!-- Awards -->
+                <section class="profile-section" id="awardsSection" style="display: none;">
+                    <h2 class="section-title">Awards & Achievements</h2>
+                    <div class="awards-list" id="awardsList"></div>
+                </section>
+
+                <!-- Academic Links -->
+                <section class="profile-section" id="linksSection" style="display: none;">
+                    <h2 class="section-title">Academic Links</h2>
+                    <div class="links-grid" id="linksList"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Department of Information Science and Engineering, RIT. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/faculty-detail.js"></script>
+</body>
+
+</html>
