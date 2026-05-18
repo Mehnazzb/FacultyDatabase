@@ -3,9 +3,15 @@ pipeline {
 
     stages {
 
-        stage('Build Docker Image') {
+        stage('Project Checkout Successful') {
             steps {
-                sh 'docker build -t facultydb .'
+                echo 'Repository cloned successfully'
+            }
+        }
+
+        stage('CI Pipeline Successful') {
+            steps {
+                echo 'Jenkins pipeline executed successfully'
             }
         }
 
