@@ -47,18 +47,17 @@ app.get('/', (req, res) => {
 });
 
 // Handle undefined routes
-app.use('*', (req, res) => {
-    // If it's an API route, return JSON error
+app.use((req, res) => {
+
     if (req.originalUrl.startsWith('/api')) {
         return res.status(404).json({
             success: false,
             message: `Route ${req.originalUrl} not found`
         });
     }
-    // Otherwise, serve the frontend (for SPA routing)
+
     res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
-
 // Global error handler
 app.use((err, req, res, next) => {
     console.error('Global Error Handler:', err);
